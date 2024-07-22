@@ -1,0 +1,36 @@
+Intro
+Recurrent neural networks (RNNs), long short-term memory (LSTM), and gated recurrent neural networks are established in sequence modeling and transduction.
+RNNs generate hidden states sequentially, which limits parallelization during training.
+Attention mechanisms help model dependencies without regard to distance in sequences.
+The Transformer model relies entirely on attention mechanisms, avoiding recurrence, and allows significant parallelization.
+
+Background
+Models like Extended Neural GPU, ByteNet, and ConvS2S use convolutional networks for hidden representations but struggle with learning dependencies between distant positions.
+Self-attention, or intra-attention, relates different positions of a single sequence to compute its representation, useful in various tasks.
+The Transformer is the first model to rely entirely on self-attention without using sequence-aligned RNNs or convolution.
+
+Model Architecture
+The Transformer uses an encoder-decoder structure.
+Encoder: Consists of a stack of 6 identical layers, each with a multi-head self-attention mechanism and a position-wise fully connected feed-forward network.
+Decoder: Similar to the encoder but with an additional encoder-decoder attention layer.
+
+Attention Mechanism
+The model uses multi-head attention in three ways:
+Encoder-decoder attention: Queries from the previous decoder layer, keys, and values from the encoder output.
+Encoder self-attention: Each position attends to all positions in the previous layer.
+Decoder self-attention: Each position attends to all positions up to and including that position, preserving the auto-regressive property.
+
+Position-wise Feed-Forward Networks
+Each layer in the encoder and decoder contains a fully connected feed-forward network applied to each position separately and identically, consisting of two linear transformations with ReLU activation in between.
+
+Embeddings and Softmax
+Learned embeddings convert input and output tokens to vectors of dimension d_model.
+The same weight matrix is shared between the embedding layers and the pre-softmax linear transformation.
+
+Positional Encoding
+To utilize the order of sequences, positional encodings are added to input embeddings.
+These encodings use sine and cosine functions of different frequencies, which help the model learn to attend by relative positions.
+
+Why Self-Attention
+Self-attention layers are compared with recurrent and convolutional layers.
+Self-attention offers better computational complexity per layer, parallelization, and shorter path lengths for long-range dependencies.
